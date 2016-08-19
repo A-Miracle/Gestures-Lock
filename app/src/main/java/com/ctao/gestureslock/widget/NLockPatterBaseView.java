@@ -61,6 +61,11 @@ public abstract class NLockPatterBaseView extends View {
         mPasswordMinLength = passwordMinLength;
     }
 
+    /** 获取轨迹球密码的最少长度*/
+    public int getPasswordMinLength() {
+       return mPasswordMinLength;
+    }
+
     /**设置是否覆盖绘制(不清除初始图片)*/
     public void setCoverDrawing(boolean coverDrawing){
         isCoverDrawing = coverDrawing;
@@ -68,6 +73,15 @@ public abstract class NLockPatterBaseView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // wrap_content, wrap_content
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        if(widthMode == MeasureSpec.AT_MOST && heightMode == MeasureSpec.AT_MOST){
+            int widthPixels = getResources().getDisplayMetrics().widthPixels;
+            setMeasuredDimension(widthPixels, widthPixels);
+            return;
+        }
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int measuredWidth = getMeasuredWidth();
         int measuredHeight = getMeasuredHeight();
@@ -120,6 +134,19 @@ public abstract class NLockPatterBaseView extends View {
 
     /**绘制点、线、角度*/
     private void drawToCanvas(Canvas canvas) {
+        // 画连线
+        if (mSelectPoints.size() > 0) {
+            Point tp = mSelectPoints.get(0);
+            for (int i = 1; i < mSelectPoints.size(); i++) {
+                Point p = mSelectPoints.get(i);
+                drawLine(canvas, tp, p);
+                tp = p;
+            }
+            if (movingBePoint) {
+                drawLine(canvas, tp, new Point(moveingX, moveingY));
+            }
+        }
+
         // 画所有点
         for (int i = 0; i < mPoints.length; i++) {
             for (int j = 0; j < mPoints[i].length; j++) {
@@ -137,19 +164,6 @@ public abstract class NLockPatterBaseView extends View {
                 } else {
                     drawPointNormal(canvas, p);
                 }
-            }
-        }
-
-        // 画连线
-        if (mSelectPoints.size() > 0) {
-            Point tp = mSelectPoints.get(0);
-            for (int i = 1; i < mSelectPoints.size(); i++) {
-                Point p = mSelectPoints.get(i);
-                drawLine(canvas, tp, p);
-                tp = p;
-            }
-            if (movingBePoint) {
-                drawLine(canvas, tp, new Point(moveingX, moveingY));
             }
         }
     }
@@ -244,11 +258,13 @@ public abstract class NLockPatterBaseView extends View {
             if (mSelectPoints.size() == 1) {
                 reset();
             } else if (mSelectPoints.size() < mPasswordMinLength && mSelectPoints.size() > 0) {
+                if (mCompleteListener != null){
+                    mCompleteListener.onShortHint();
+                }
                 markError();
-                passwordShortHint();
-            }else if (mCompleteListener != null) {
-                if (mSelectPoints.size() >= mPasswordMinLength) {
-                    isTouch = false;
+            }else if (mSelectPoints.size() >= mPasswordMinLength) {
+                isTouch = false;
+                if (mCompleteListener != null) {
                     mCompleteListener.onComplete(toPointString());
                 }
             }
@@ -257,12 +273,9 @@ public abstract class NLockPatterBaseView extends View {
         return true;
     }
 
-    /**密码太短提示*/
-    protected abstract void passwordShortHint();
-
     /** 转换为String*/
     private String toPointString() {
-        if (mSelectPoints.size() > mPasswordMinLength) {
+        if (mSelectPoints.size() >= mPasswordMinLength) {
             StringBuffer sf = new StringBuffer();
             for (Point p : mSelectPoints) {
                 sf.append(",");
@@ -350,5 +363,7 @@ public abstract class NLockPatterBaseView extends View {
     public interface OnCompleteListener {
         /** 画完了 */
         void onComplete(String password);
+        /** 长度过短提示 */
+        void onShortHint();
     }
 }

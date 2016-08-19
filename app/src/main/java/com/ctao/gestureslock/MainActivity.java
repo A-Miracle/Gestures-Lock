@@ -1,7 +1,10 @@
 package com.ctao.gestureslock;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.ctao.gestureslock.widget.NLockPatterBaseView;
@@ -11,45 +14,55 @@ import com.ctao.gestureslock.widget.NLockPatterBaseView;
  */
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    NLockPatterBaseView nlock_1;
-    NLockPatterBaseView nlock_2;
-    NLockPatterBaseView nlock_3;
+    private View bt_set, bt_edit, bt_check;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nlock_1 = (NLockPatterBaseView) findViewById(R.id.nlock_1);
-        nlock_2 = (NLockPatterBaseView) findViewById(R.id.nlock_2);
-        nlock_3 = (NLockPatterBaseView) findViewById(R.id.nlock_3);
+        bt_set = findViewById(R.id.bt_set);
+        bt_edit = findViewById(R.id.bt_edit);
+        bt_check = findViewById(R.id.bt_check);
 
-        findViewById(R.id.bt_1).setOnClickListener(this);
-        findViewById(R.id.bt_2).setOnClickListener(this);
-        findViewById(R.id.bt_3).setOnClickListener(this);
+        bt_set.setOnClickListener(this);
+        bt_edit.setOnClickListener(this);
+        bt_check.setOnClickListener(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sp = WApplication.getApplication().getSp();
+        String password = sp.getString(Constants.NLOCK_PASSWORD, "");
+
+        if(TextUtils.isEmpty(password)){
+            bt_set.setVisibility(View.VISIBLE);
+
+            bt_edit.setVisibility(View.GONE);
+            bt_check.setVisibility(View.GONE);
+        }else{
+            bt_set.setVisibility(View.GONE);
+
+            bt_edit.setVisibility(View.VISIBLE);
+            bt_check.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(this, NLockActivity.class);
         switch (v.getId()){
-            case R.id.bt_1:
-                nlock_1.setVisibility(View.VISIBLE);
-                nlock_1.clearPassword(0);
-                nlock_2.setVisibility(View.GONE);
-                nlock_3.setVisibility(View.GONE);
+            case R.id.bt_set: //设置
+                intent.putExtra(NLockActivity.PARAMETER_TYPE, NLockActivity.TYPE_SETUP);
                 break;
-            case R.id.bt_2:
-                nlock_1.setVisibility(View.GONE);
-                nlock_2.setVisibility(View.VISIBLE);
-                nlock_2.clearPassword(0);
-                nlock_3.setVisibility(View.GONE);
+            case R.id.bt_edit: //修改
+                intent.putExtra(NLockActivity.PARAMETER_TYPE, NLockActivity.TYPE_MODIFY);
                 break;
-            case R.id.bt_3:
-                nlock_1.setVisibility(View.GONE);
-                nlock_2.setVisibility(View.GONE);
-                nlock_3.setVisibility(View.VISIBLE);
-                nlock_3.clearPassword(0);
+            case R.id.bt_check: //校验
+                intent.putExtra(NLockActivity.PARAMETER_TYPE, NLockActivity.TYPE_CHECK);
                 break;
         }
+        startActivity(intent);
     }
 }

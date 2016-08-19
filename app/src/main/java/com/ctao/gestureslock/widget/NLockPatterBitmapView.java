@@ -117,9 +117,4 @@ public class NLockPatterBitmapView extends NLockPatterBaseView{
     public double distance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.abs(x1 - x2) * Math.abs(x1 - x2) + Math.abs(y1 - y2) * Math.abs(y1 - y2));
     }
-
-    @Override
-    protected void passwordShortHint() {
-        Toast.makeText(getContext(), "密码长度太短！", Toast.LENGTH_SHORT).show();
-    }
 }

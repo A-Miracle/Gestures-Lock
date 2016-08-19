@@ -1,64 +1,43 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AAA">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="10dp"
-        android:text="更多自定义, 等你去实现"/>
+    android:background="#2a2929">
 
     <LinearLayout
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <Button
-            android:layout_weight="1"
-            android:id="@+id/bt_1"
+            android:id="@+id/bt_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自定义一"
-            android:textColor="#000"/>
+            android:background="@null"
+            android:padding="15dp"
+            android:text="设置手势密码"
+            android:textColor="#f8f8f8"
+            android:textSize="20sp" />
 
         <Button
-            android:layout_weight="1"
-            android:id="@+id/bt_2"
+            android:id="@+id/bt_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自定义二"
-            android:textColor="#000" />
+            android:background="@null"
+            android:padding="15dp"
+            android:text="修改手势密码"
+            android:textColor="#f8f8f8"
+            android:textSize="20sp" />
 
         <Button
-            android:layout_weight="1"
-            android:id="@+id/bt_3"
+            android:id="@+id/bt_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自定义三"
-            android:textColor="#000"/>
+            android:background="@null"
+            android:padding="15dp"
+            android:text="校验手势密码"
+            android:textColor="#f8f8f8"
+            android:textSize="20sp" />
     </LinearLayout>
 
-    <com.ctao.gestureslock.widget.NLockPatterBitmapView
-        android:id="@+id/nlock_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <com.ctao.gestureslock.widget.NLockPatterColorView
-        android:visibility="gone"
-        android:id="@+id/nlock_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <com.ctao.gestureslock.widget.NLockPatterCustomView
-        android:visibility="gone"
-        android:id="@+id/nlock_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-</FrameLayout>
+</RelativeLayout>

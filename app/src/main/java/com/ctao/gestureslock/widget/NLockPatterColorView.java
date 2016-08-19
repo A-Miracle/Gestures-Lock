@@ -94,9 +94,4 @@ public class NLockPatterColorView extends NLockPatterBaseView{
             canvas.drawLine(a.x, a.y, b.x, b.y, mLocusLineErrorPaint);
         }
     }
-
-    @Override
-    protected void passwordShortHint() {
-        Toast.makeText(getContext(), "密码长度太短！", Toast.LENGTH_SHORT).show();
-    }
 }
