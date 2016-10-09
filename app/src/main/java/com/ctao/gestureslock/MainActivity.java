@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.ctao.gestureslock.widget.NLockPatterBaseView;
-
 /**
  * Created by A Miracle on 2016/3/29.
  */
@@ -28,6 +26,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         bt_set.setOnClickListener(this);
         bt_edit.setOnClickListener(this);
         bt_check.setOnClickListener(this);
+
+        findViewById(R.id.bt_history).setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +51,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if(v.getId() == R.id.bt_history){
+            startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+            return;
+        }
         Intent intent = new Intent(this, NLockActivity.class);
         switch (v.getId()){
             case R.id.bt_set: //设置

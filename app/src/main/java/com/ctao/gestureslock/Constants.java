@@ -1,7 +1,7 @@
 package com.ctao.gestureslock;
 
 /**
- * Created by 陈飞(ex-chenfei008@pingan.com.cn) on 16/8/18
+ * Created by A Miracle on 2016/8/18.
  */
 public class Constants {
 

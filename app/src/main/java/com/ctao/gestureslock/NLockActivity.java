@@ -126,6 +126,7 @@ public class NLockActivity extends Activity{
                 nlock_view.markError();
             }else{
                 // 错误5次, 清掉关闭
+                errorCount = 0;
                 sp.edit().putString(Constants.NLOCK_PASSWORD, "").commit();
                 Toast.makeText(this, "手势密码错误5次", Toast.LENGTH_SHORT).show();
                 finish();
@@ -151,6 +152,7 @@ public class NLockActivity extends Activity{
                 nlock_view.markError();
             }else{
                 // 原密码错误5次, 清掉关闭
+                errorCount = 0;
                 sp.edit().putString(Constants.NLOCK_PASSWORD, "").commit();
                 Toast.makeText(this, "手势密码错误5次", Toast.LENGTH_SHORT).show();
                 finish();
