@@ -1,4 +1,4 @@
-package com.ctao.gestureslock.widget;
+package com.ctao.gestureslock.widget.history;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,17 +7,17 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.widget.Toast;
 
 import com.ctao.gestureslock.R;
 import com.ctao.gestureslock.utils.BitmapUtils;
+import com.ctao.gestureslock.widget.base.NLockBaseView;
 
 
 /**
  * 全部Bitmap类型手势宫格锁
  * Created by A Miracle on 2016/3/29.
  */
-public class NLockPatterBitmapView extends NLockPatterBaseView{
+public class NLockBitmapView extends NLockBaseView {
 
     /**圆点初始状态时的图片*/			private Bitmap locus_round_original;
     /**圆点点击时的图片*/				private Bitmap locus_round_click;
@@ -36,40 +36,40 @@ public class NLockPatterBitmapView extends NLockPatterBaseView{
     /**画笔*/						private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 
-    public NLockPatterBitmapView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NLockBitmapView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    public NLockPatterBitmapView(Context context, AttributeSet attrs) {
+    public NLockBitmapView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public NLockPatterBitmapView(Context context) {
+    public NLockBitmapView(Context context) {
         super(context);
         init();
     }
 
     private void init() {
-        ratio_r_spac = 0.7f;
+        mRatioThanSpacing = 0.7f;
     }
 
     @Override
     protected void onInitCache() {
 
-        locus_round_original = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.circle_normal), radius * 2, radius * 2);
-        locus_round_click =  BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.circle_selected), radius * 2, radius * 2);
-        locus_round_click_error =  BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.circle_wrong), radius * 2, radius * 2);
+        locus_round_original = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.circle_normal), mRadius * 2, mRadius * 2);
+        locus_round_click =  BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.circle_selected), mRadius * 2, mRadius * 2);
+        locus_round_click_error =  BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.circle_wrong), mRadius * 2, mRadius * 2);
 
-        locus_line = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line), radius / 3, radius / 3);
-        locus_line_error =BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line_error), radius / 3, radius / 3);
+        locus_line = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line), mRadius / 3, mRadius / 3);
+        locus_line_error =BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line_error), mRadius / 3, mRadius / 3);
 
-        locus_line_semicircle = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line_semicircle), radius / 4, radius / 4);
-        locus_line_semicircle_error =BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line_semicircle_error), radius / 4, radius / 4);
+        locus_line_semicircle = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line_semicircle), mRadius / 4, mRadius / 4);
+        locus_line_semicircle_error =BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.line_semicircle_error), mRadius / 4, mRadius / 4);
 
-        locus_arrow = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.arrow), radius, radius);
-        locus_arrow_error = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.arrow_error), radius, radius);
+        locus_arrow = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.arrow), mRadius, mRadius);
+        locus_arrow_error = BitmapUtils.zoomBitmapSize(BitmapFactory.decodeResource(getResources(), R.mipmap.arrow_error), mRadius, mRadius);
     }
 
     @Override
@@ -100,14 +100,14 @@ public class NLockPatterBitmapView extends NLockPatterBaseView{
             mMatrix.postTranslate(a.x, a.y - locus_line.getHeight() / 2.0f);
             canvas.drawBitmap(locus_line, mMatrix, mPaint);
             canvas.drawBitmap(locus_line_semicircle, a.x + distance - locus_line_semicircle.getWidth()/2, a.y - locus_line_semicircle.getHeight() / 2.0f, mPaint);
-            canvas.drawBitmap(locus_arrow, a.x+radius/2, a.y - locus_arrow.getHeight() / 2.0f, mPaint);
+            canvas.drawBitmap(locus_arrow, a.x+mRadius/2, a.y - locus_arrow.getHeight() / 2.0f, mPaint);
         } else {
             mPaint.setAlpha(lineAlpha_error);
             mMatrix.setScale(distance/ locus_line_error.getWidth(), 1);
             mMatrix.postTranslate(a.x, a.y - locus_line_error.getHeight() / 2.0f);
             canvas.drawBitmap(locus_line_error, mMatrix, mPaint);
             canvas.drawBitmap(locus_line_semicircle_error, a.x + distance - locus_line_semicircle_error.getWidth()/2, a.y - locus_line_semicircle_error.getHeight() / 2.0f, mPaint);
-            canvas.drawBitmap(locus_arrow_error, a.x+radius/2, a.y - locus_arrow.getHeight() / 2.0f, mPaint);
+            canvas.drawBitmap(locus_arrow_error, a.x+mRadius/2, a.y - locus_arrow.getHeight() / 2.0f, mPaint);
         }
         mPaint.setAlpha(tepAlpha);
         canvas.rotate(-degrees, a.x, a.y);

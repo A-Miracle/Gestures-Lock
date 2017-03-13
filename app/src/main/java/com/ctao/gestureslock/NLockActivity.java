@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ctao.gestureslock.widget.NLockPatterBaseView;
+import com.ctao.gestureslock.widget.base.NLockBaseView;
 import com.ctao.gestureslock.widget.NLockSmallView;
 import com.ctao.gestureslock.widget.NLockView;
 
@@ -18,13 +18,13 @@ import com.ctao.gestureslock.widget.NLockView;
  * Created by A Miracle on 2016/8/18.
  */
 public class NLockActivity extends Activity{
-
     public static final String PARAMETER_TYPE = "TYPE";
-    private final static int TOTAL_COUNT = 5;
 
     public static final int TYPE_SETUP = 0x11; //设置
     public static final int TYPE_MODIFY = 0x12; //修改
     public static final int TYPE_CHECK = 0x13; //校验
+
+    private static final int TOTAL_COUNT = 5;
 
     private NLockSmallView nlock_small_view;
     private NLockView nlock_view;
@@ -38,6 +38,7 @@ public class NLockActivity extends Activity{
     private int repeatCount;
 
     private String tmpPwd;
+
     //修改, 校验用到成员变量
     private String mPwd;
     private int errorCount;
@@ -88,7 +89,7 @@ public class NLockActivity extends Activity{
     }
 
     private void initListener() {
-        nlock_view.setOnCompleteListener(new NLockPatterBaseView.OnCompleteListener() {
+        nlock_view.setOnCompleteListener(new NLockBaseView.OnCompleteListener() {
             @Override
             public void onComplete(String password) {
                 switch (type){

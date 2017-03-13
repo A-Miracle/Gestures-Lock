@@ -1,4 +1,4 @@
-package com.ctao.gestureslock.widget;
+package com.ctao.gestureslock.widget.history;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,15 +6,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.widget.Toast;
 
 import com.ctao.gestureslock.utils.DisplayUtils;
+import com.ctao.gestureslock.widget.base.NLockBaseView;
 
 /**
- * 全部Color类型手势宫格锁
  * Created by A Miracle on 2016/3/29.
  */
-public class NLockPatterColorView extends NLockPatterBaseView{
+public class NLockCustomView extends NLockBaseView {
 
     /**原始点Paint*/				private Paint mLocusRoundOriginalPaint;
     /**原始点大小*/				private float mOriginalSize;
@@ -26,15 +25,15 @@ public class NLockPatterColorView extends NLockPatterBaseView{
     /**选中连线Paint*/			private Paint mLocusLinePaint;
     /**错误连线Paint*/			private Paint mLocusLineErrorPaint;
 
-    public NLockPatterColorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NLockCustomView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public NLockPatterColorView(Context context) {
+    public NLockCustomView(Context context) {
         super(context);
     }
 
-    public NLockPatterColorView(Context context, AttributeSet attrs) {
+    public NLockCustomView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -73,17 +72,26 @@ public class NLockPatterColorView extends NLockPatterBaseView{
 
     @Override
     protected void drawPointNormal(Canvas canvas, Point p) {
-        canvas.drawArc(new RectF(p.x-mOriginalSize, p.y-mOriginalSize, p.x+mOriginalSize, p.y+mOriginalSize), 0, 360, true, mLocusRoundOriginalPaint);
+        float tmpWidth = mLocusRoundOriginalPaint.getStrokeWidth();
+        mLocusRoundOriginalPaint.setStrokeWidth(tmpWidth * (1 + p.index));
+        canvas.drawArc(new RectF(p.x - mOriginalSize - p.index, p.y - mOriginalSize - p.index, p.x + mOriginalSize + p.index, p.y + mOriginalSize + p.index), 0, 360, true, mLocusRoundOriginalPaint);
+        mLocusRoundOriginalPaint.setStrokeWidth(tmpWidth);
     }
 
     @Override
     protected void drawPointCheck(Canvas canvas, Point p) {
-        canvas.drawArc(new RectF(p.x-mClickSize, p.y-mClickSize, p.x+mClickSize, p.y+mClickSize), 0, 360, true, mLocusRoundClickPaint);
+        float tmpWidth = mLocusRoundClickPaint.getStrokeWidth();
+        mLocusRoundClickPaint.setStrokeWidth(tmpWidth * (1 + p.index));
+        canvas.drawArc(new RectF(p.x - mClickSize - p.index, p.y - mClickSize - p.index, p.x + mClickSize + p.index, p.y + mClickSize + p.index), 0, 360, true, mLocusRoundClickPaint);
+        mLocusRoundClickPaint.setStrokeWidth(tmpWidth);
     }
 
     @Override
     protected void drawPointCheckError(Canvas canvas, Point p) {
-        canvas.drawArc(new RectF(p.x-mClickErrorSize, p.y-mClickErrorSize, p.x+mClickErrorSize, p.y+mClickErrorSize), 0, 360, true, mLocusRoundClickErrorPaint);
+        float tmpWidth = mLocusRoundClickErrorPaint.getStrokeWidth();
+        mLocusRoundClickErrorPaint.setStrokeWidth(tmpWidth * (1 + p.index));
+        canvas.drawArc(new RectF(p.x - mClickErrorSize - p.index, p.y - mClickErrorSize - p.index, p.x + mClickErrorSize + p.index, p.y + mClickErrorSize + p.index), 0, 360, true, mLocusRoundClickErrorPaint);
+        mLocusRoundClickErrorPaint.setStrokeWidth(tmpWidth);
     }
 
     @Override

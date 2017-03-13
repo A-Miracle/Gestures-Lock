@@ -4,22 +4,23 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.ctao.gestureslock.widget.NLockPatterBaseView;
+import com.ctao.gestureslock.widget.base.NLockBaseView;
 
 /**
  * Created by A Miracle on 2016/10/9.
  */
-public class HistoryActivity extends Activity implements View.OnClickListener {    NLockPatterBaseView nlock_1;
-    NLockPatterBaseView nlock_2;
-    NLockPatterBaseView nlock_3;
+public class HistoryActivity extends Activity implements View.OnClickListener {
+    private NLockBaseView nlock_1;
+    private NLockBaseView nlock_2;
+    private NLockBaseView nlock_3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        nlock_1 = (NLockPatterBaseView) findViewById(R.id.nlock_1);
-        nlock_2 = (NLockPatterBaseView) findViewById(R.id.nlock_2);
-        nlock_3 = (NLockPatterBaseView) findViewById(R.id.nlock_3);
+        nlock_1 = (NLockBaseView) findViewById(R.id.nlock_1);
+        nlock_2 = (NLockBaseView) findViewById(R.id.nlock_2);
+        nlock_3 = (NLockBaseView) findViewById(R.id.nlock_3);
 
         findViewById(R.id.bt_1).setOnClickListener(this);
         findViewById(R.id.bt_2).setOnClickListener(this);
