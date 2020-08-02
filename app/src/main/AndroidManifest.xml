@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ctao.gestureslock">
+    package="com.miracle.simple">
 
     <application
-        android:name=".WApplication"
+        android:name="a.miracle.lock.simple.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Light.NoTitleBar">
         <activity
-            android:name=".MainActivity"
+            android:name="a.miracle.lock.simple.MainAct"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NLockActivity"
+            android:name="a.miracle.lock.simple.NLockAct"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".HistoryActivity"
+            android:name="a.miracle.lock.simple.MoreAct"
             android:label="@string/app_name">
         </activity>
     </application>
