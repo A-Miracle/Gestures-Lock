@@ -40,9 +40,9 @@ dependencies {
 
 <!-- <dependencies> section of pom.xml -->
 <dependency>
-    <groupId>com.github.PhilJay</groupId>
-    <artifactId>MPAndroidChart</artifactId>
-    <version>v3.1.0</version>
+    <groupId>com.github.A-Miracle</groupId>
+    <artifactId>Gestures-Lock</artifactId>
+    <version>v1.1.0</version>
 </dependency>
 ```
 
