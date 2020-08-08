@@ -48,5 +48,5 @@ dependencies {
 
 <br/>
 
-![image](https://raw.githubusercontent.com/A-Miracle/Gestures-Lock/blob/master/demo2.gif)
-![image](https://raw.githubusercontent.com/A-Miracle/Gestures-Lock/blob/master/demo.gif)
+![image](https://github.com/A-Miracle/Gestures-Lock/blob/master/demo.gif?raw=true)
+![image](https://github.com/A-Miracle/Gestures-Lock/blob/master/demo2.gif?raw=true)
